@@ -17,7 +17,7 @@ public class Bot extends TelegramLongPollingBot {
 
     private final String TOKEN = "BOT_TOKEN";
     private final String BOT_NAME = "BOT_NAME";
-    private  HashMap<String,Float> ratesAndPairs = new HashMap<>();
+    private HashMap<String,Float> ratesAndPairs = new HashMap<>();
     private final HashMap<Integer,String> usersIdAndCurrencies = new HashMap<>();
 
     @Override
@@ -76,12 +76,12 @@ public class Bot extends TelegramLongPollingBot {
     public String getBotUsername() {
         return BOT_NAME;
     }
-    private InlineKeyboardMarkup setInlineKeyboard(HashMap<String,Float> pairAndRatesMap){
+    private InlineKeyboardMarkup setInlineKeyboard(HashMap<String,Float> pairsAndRatesMap){
         List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
         List<InlineKeyboardButton> buttonsInner = new ArrayList<>();
         List<InlineKeyboardButton> buttonsInner1 = new ArrayList<>();
         InlineKeyboardMarkup markupKeyboard = new InlineKeyboardMarkup();
-        for(Map.Entry<String,Float> pair : pairAndRatesMap.entrySet()){
+        for(Map.Entry<String,Float> pair : pairsAndRatesMap.entrySet()){
             String name = pair.getKey().replaceAll("USD","USD в ");
             if (buttonsInner.size()<2) buttonsInner.add(new InlineKeyboardButton().setText(name).setCallbackData(pair.getKey()));
             else buttonsInner1.add(new InlineKeyboardButton().setText(name).setCallbackData(pair.getKey()));
@@ -96,13 +96,5 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public String getBotToken() {
         return TOKEN;
-    }
-    private static boolean isDigit(String s) throws NumberFormatException {
-        try {
-            Integer.parseInt(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 }

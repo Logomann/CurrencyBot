@@ -1,5 +1,3 @@
-import com.sun.xml.internal.fastinfoset.util.StringArray;
-import org.checkerframework.checker.units.qual.A;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,7 +17,7 @@ import java.util.*;
 
 public final class HttpRequest {
     private final static String SERVER_URL = "http://api.currencylayer.com/live?";
-    private final static String SERVER_KEY = "access_key=5d0e13eee66b7418321740af4e183be5";
+    private final static String SERVER_KEY = "ACCESS_KEY";
     // private final static String MAIN_CURRENCY = "&source=RUB";
     private final static String CURRENCY_PAIRS = "&currencies=EUR,RUB,GBP,CHF";
 
