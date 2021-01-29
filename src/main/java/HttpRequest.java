@@ -17,7 +17,7 @@ import java.util.*;
 
 public final class HttpRequest {
     private final static String SERVER_URL = "http://api.currencylayer.com/live?";
-    private final static String SERVER_KEY = "ACCESS_KEY";
+    private final static String SERVER_KEY = "access_key=1234567890";
     private final static String SOURCE = "&source=";
     private final static String MAIN_CURRENCY = "USD";
     private final static String CURRENCY_PAIRS = "&currencies=EUR,RUB,GBP,CHF";

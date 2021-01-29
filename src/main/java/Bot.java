@@ -15,7 +15,7 @@ import java.util.Map;
 public class Bot extends TelegramLongPollingBot {
 
 
-    private final String TOKEN = "BOT_TOKEN";
+    private final String TOKEN = "TOKEN";
     private final String BOT_NAME = "BOT_NAME";
     private HashMap<String,Float> ratesAndPairs = new HashMap<>();
     private final HashMap<Integer,String> usersIdAndCurrencies = new HashMap<>();
@@ -65,6 +65,7 @@ public class Bot extends TelegramLongPollingBot {
     }
       private String calculateAmount(String s, int userId){
         float f = ratesAndPairs.get(usersIdAndCurrencies.get(userId));
+        if (s.contains(",")) s = s.replaceAll(",",".");
         float d = f * Float.parseFloat(s);
         String result = String.format("%.2f",d) + " " + usersIdAndCurrencies.get(userId).
                 replaceAll(HttpRequest.getMainCurrency(),"") +
@@ -99,6 +100,7 @@ public class Bot extends TelegramLongPollingBot {
         return TOKEN;
     }
     public static boolean isNumeric(String strNum) {
+        if (strNum.contains(",")) strNum = strNum.replaceAll(",",".");
         try {
             float d = Float.parseFloat(strNum);
         } catch (NumberFormatException | NullPointerException nfe) {
