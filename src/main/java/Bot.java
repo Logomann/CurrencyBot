@@ -66,7 +66,8 @@ public class Bot extends TelegramLongPollingBot {
       private String calculateAmount(String s, int userId){
         float f = ratesAndPairs.get(usersIdAndCurrencies.get(userId));
         float d = f * Float.parseFloat(s);
-        String result = String.format("%.2f",d) + " " + usersIdAndCurrencies.get(userId).replaceAll("USD","") +
+        String result = String.format("%.2f",d) + " " + usersIdAndCurrencies.get(userId).
+                replaceAll(HttpRequest.getMainCurrency(),"") +
                 " по курсу " + String.format("%.2f",f) + " на " + HttpRequest.getCurrencyDate();
 
         return   result;
@@ -82,7 +83,7 @@ public class Bot extends TelegramLongPollingBot {
         List<InlineKeyboardButton> buttonsInner1 = new ArrayList<>();
         InlineKeyboardMarkup markupKeyboard = new InlineKeyboardMarkup();
         for(Map.Entry<String,Float> pair : pairsAndRatesMap.entrySet()){
-            String name = pair.getKey().replaceAll("USD","USD в ");
+            String name = pair.getKey().replaceAll(HttpRequest.getMainCurrency(),HttpRequest.getMainCurrency()+" в ");
             if (buttonsInner.size()<2) buttonsInner.add(new InlineKeyboardButton().setText(name).setCallbackData(pair.getKey()));
             else buttonsInner1.add(new InlineKeyboardButton().setText(name).setCallbackData(pair.getKey()));
 

@@ -18,21 +18,16 @@ import java.util.*;
 public final class HttpRequest {
     private final static String SERVER_URL = "http://api.currencylayer.com/live?";
     private final static String SERVER_KEY = "ACCESS_KEY";
-    // private final static String MAIN_CURRENCY = "&source=RUB";
+    private final static String SOURCE = "&source=";
+    private final static String MAIN_CURRENCY = "USD";
     private final static String CURRENCY_PAIRS = "&currencies=EUR,RUB,GBP,CHF";
-
-
-
     private static String currencyDate = "";
-
-
-
 
     public static HashMap<String,Float> getCurrencyData() throws ParseException {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-        URL url = createUrl(SERVER_URL + SERVER_KEY /*+ MAIN_CURRENCY*/ + CURRENCY_PAIRS);
+        URL url = createUrl(SERVER_URL + SERVER_KEY /*+ SOURCE + MAIN_CURRENCY*/ + CURRENCY_PAIRS);
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
@@ -69,13 +64,11 @@ public final class HttpRequest {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(10000);
+            urlConnection.setConnectTimeout(15000);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            // If the request was successful (response code 200),
-            // then read the input stream and parse the response.
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
@@ -85,9 +78,6 @@ public final class HttpRequest {
                 urlConnection.disconnect();
             }
             if (inputStream != null) {
-                // Closing the input stream could throw an IOException, which is why
-                // the makeHttpRequest(URL url) method signature specifies than an IOException
-                // could be thrown.
                 inputStream.close();
             }
 
@@ -109,13 +99,10 @@ public final class HttpRequest {
         return output.toString();
     }
 
-
-
     private static HashMap<String,Float> extractFeatureFromJson(String currencyJSON) throws ParseException {
         if (currencyJSON.isEmpty()) {
             return null;
         }
-
             HashMap<String,Float> pairsAndRates = new HashMap<>();
             JSONArray currencyPairsArray = new JSONArray();
             JSONArray currencyTimeArray = new JSONArray();
@@ -137,5 +124,9 @@ public final class HttpRequest {
     }
     public static String getCurrencyDate() {
         return currencyDate;
+    }
+
+    public static String getMainCurrency() {
+        return MAIN_CURRENCY;
     }
 }
