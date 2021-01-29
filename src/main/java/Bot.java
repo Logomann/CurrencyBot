@@ -54,7 +54,7 @@ public class Bot extends TelegramLongPollingBot {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        else if(s.matches("[-+]?\\d+") && !usersIdAndCurrencies.isEmpty()){
+        else if(isNumeric(s) && !usersIdAndCurrencies.isEmpty()){
             sendMessage.setText(calculateAmount(s,userId));
             execute(sendMessage);
         }else {
@@ -98,4 +98,13 @@ public class Bot extends TelegramLongPollingBot {
     public String getBotToken() {
         return TOKEN;
     }
+    public static boolean isNumeric(String strNum) {
+        try {
+            float d = Float.parseFloat(strNum);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
+    }
+
 }
