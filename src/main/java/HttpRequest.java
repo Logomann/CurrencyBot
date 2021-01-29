@@ -25,8 +25,6 @@ public final class HttpRequest {
 
     public static HashMap<String,Float> getCurrencyData() throws ParseException {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
         URL url = createUrl(SERVER_URL + SERVER_KEY /*+ SOURCE + MAIN_CURRENCY*/ + CURRENCY_PAIRS);
         String jsonResponse = null;
         try {
